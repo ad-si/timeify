@@ -1,0 +1,20 @@
+{
+  "name": "hour",
+  "version": "0.0.0",
+  "description": "Full ISO 8601 compatible parser.",
+  "main": "source/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "keywords": [
+    "iso",
+    "8601",
+    "time",
+    "date"
+  ],
+  "author": "Adrian Sieber",
+  "license": "MIT"
+}
