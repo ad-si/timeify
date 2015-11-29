@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node test/index.js"
+    "test": "babel-node --presets es2015 test/index.js"
   },
   "keywords": [
     "iso",
@@ -16,5 +16,10 @@
     "date"
   ],
   "author": "Adrian Sieber",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.1.18",
+    "babel-cli": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18"
+  }
 }
