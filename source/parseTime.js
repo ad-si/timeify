@@ -1,5 +1,5 @@
 export default function (timeString) {
-	timeString = timeString.replace(':', '')
+	timeString = timeString.replace(/\:/g, '')
 
 	let [time, fraction = 0] = timeString.split('.')
 	let returnObject = {
@@ -10,15 +10,15 @@ export default function (timeString) {
 	}
 
 	if (time.length >= 2) {
-		returnObject.hour = time.substr(0, 2) || 0
+		returnObject.hour = time.slice(0, 2) || 0
 		returnObject.minute = fraction * 60
 	}
 	if (time.length >= 4) {
-		returnObject.minute = time.substr(2, 4) || 0
+		returnObject.minute = time.slice(2, 4) || 0
 		returnObject.second = fraction * 60
 	}
 	if (time.length === 6) {
-		returnObject.second = time.substr(4, 6) || 0
+		returnObject.second = time.slice(4, 6) || 0
 		returnObject.millisecond = fraction
 	}
 
