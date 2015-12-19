@@ -18,12 +18,14 @@ export default function (dateTimeString) {
 	returnObject.lowerLimit = new Date(dateTimeString)
 
 	if (items = splitString(dateTimeString, '-')) {
+		let precision = (items.length === 3) ? 'day' : 'month'
+
 		Object.assign(returnObject, {
 			upperLimit: addDurationToDate(
 				returnObject.lowerLimit,
-				precisionToDuration('day')
+				precisionToDuration(precision)
 			),
-			precision: 'day'
+			precision
 		})
 	}
 	else if (dateTimeString.length === 4) {

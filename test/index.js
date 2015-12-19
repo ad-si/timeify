@@ -50,6 +50,18 @@ expect(
 )
 
 expect(
+	new Hour('2015-11').toObject(),
+	'to equal',
+	{
+		type: 'moment',
+		string: '2015-11',
+		lowerLimit: new Date('2015-11-01T00:00:00.000Z'),
+		upperLimit: new Date('2015-12-01T00:00:00.000Z'),
+		precision: 'month'
+	}
+)
+
+expect(
 	new Hour('2015-11-24').toObject(),
 	'to equal',
 	{
