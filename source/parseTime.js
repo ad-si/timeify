@@ -8,6 +8,7 @@ export default function (timeString) {
 		second: 0,
 		millisecond: 0
 	}
+	fraction = Number('0.' + fraction)
 
 	if (time.length >= 2) {
 		returnObject.hour = time.slice(0, 2) || 0

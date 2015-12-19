@@ -86,6 +86,18 @@ expect(
 )
 
 expect(
+	new Hour('2015-11-24T21.25Z').toObject(),
+	'to equal',
+	{
+		type: 'moment',
+		string: '2015-11-24T21.25Z',
+		lowerLimit: new Date('2015-11-24T21:15:00.000Z'),
+		upperLimit: new Date('2015-11-24T21:16:00.000Z'),
+		precision: 'minute'
+	}
+)
+
+expect(
 	new Hour('2015-11-24T21:37Z').toObject(),
 	'to equal',
 	{
@@ -158,18 +170,3 @@ expect(
 		}
 	}
 )
-
-// assert.equal(
-// 	new Hour('2015-11-24T21:32:43Z').toObject(),
-// 	'2015-11-24T21:32:43Z'
-// )
-//
-// assert.equal(
-// 	new Hour('20151124T213243Z').toObject(),
-// 	'2015-11-24T21:32:43Z'
-// )
-//
-// assert.equal(
-// 	new Hour('20151124T213243Z').toObject(),
-// 	'2015-11-24T21:32:43Z'
-// )
