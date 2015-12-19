@@ -2,6 +2,9 @@ import Duration from './Duration.js'
 
 export default function (precision) {
 	let map = {
+		millennium: new Duration('P1000Y'),
+		century: new Duration('P100Y'),
+		decade: new Duration('P10Y'),
 		year: new Duration('P1Y'),
 		month: new Duration('P1M'),
 		week: new Duration('P1W'),

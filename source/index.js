@@ -40,12 +40,9 @@ export default class Hour {
 
 			else {
 				this.type = 'moment'
-				let datetime = parseDateTime(timeString)
-				this.precision = datetime.precision
-				this.lowerLimit = new Date(this.timeString)
-				this.upperLimit = addDurationToDate(
-					this.lowerLimit,
-					precisionToDuration(datetime.precision)
+				Object.assign(
+					this,
+					parseDateTime(timeString)
 				)
 			}
 		}

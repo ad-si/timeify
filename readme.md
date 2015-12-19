@@ -23,9 +23,10 @@ Possible formats for the time-string
 (when a string can be interpreted as a date or a time, date takes precedence)
 
 1. Date
-	- Century: '2'
-	- Decade: `20`
-	- Year: `2015`
+	- Millennium: '2'
+	- Century: `20`
+	- Decade: `201`
+	- Year: `2015`, `0002`
 	- Month: `2015-11`
 	- Week:
 		- `2015-W48`

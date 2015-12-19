@@ -2,6 +2,54 @@ import expect from 'unexpected'
 import Hour from '../source/index.js'
 
 expect(
+	new Hour('2').toObject(),
+	'to equal',
+	{
+		type: 'moment',
+		string: '2',
+		lowerLimit: new Date('2000-01-01T00:00:00.000Z'),
+		upperLimit: new Date('3000-01-01T00:00:00.000Z'),
+		precision: 'millennium'
+	}
+)
+
+expect(
+	new Hour('20').toObject(),
+	'to equal',
+	{
+		type: 'moment',
+		string: '20',
+		lowerLimit: new Date('2000-01-01T00:00:00.000Z'),
+		upperLimit: new Date('2100-01-01T00:00:00.000Z'),
+		precision: 'century'
+	}
+)
+
+expect(
+	new Hour('200').toObject(),
+	'to equal',
+	{
+		type: 'moment',
+		string: '200',
+		lowerLimit: new Date('2000-01-01T00:00:00.000Z'),
+		upperLimit: new Date('2010-01-01T00:00:00.000Z'),
+		precision: 'decade'
+	}
+)
+
+expect(
+	new Hour('2015').toObject(),
+	'to equal',
+	{
+		type: 'moment',
+		string: '2015',
+		lowerLimit: new Date('2015-01-01T00:00:00.000Z'),
+		upperLimit: new Date('2016-01-01T00:00:00.000Z'),
+		precision: 'year'
+	}
+)
+
+expect(
 	new Hour('2015-11-24').toObject(),
 	'to equal',
 	{
