@@ -1,6 +1,6 @@
 let durationFragments = [
 	'years',
-	'month',
+	'months',
 	'weeks',
 	'days',
 	'hours',
@@ -14,7 +14,7 @@ export default class Duration {
 		let durationPattern =
 			'P' +
 			'(?:(\\d+)Y)?' + // Years
-			'(?:(\\d+)M)?' + // Month
+			'(?:(\\d+)M)?' + // Months
 			'(?:(\\d+)W)?' + // Weeks
 			'(?:(\\d+)D)?' + // Days
 			'T?' +
