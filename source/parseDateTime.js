@@ -1,6 +1,9 @@
 import addDurationToDate from './addDurationToDate.js'
 import splitString from './splitString.js'
 import precisionToDuration from './precisionToDuration.js'
+import parseDate from './parseDate.js'
+import parseTime from './parseTime.js'
+
 
 export default function (dateTimeString) {
 
@@ -10,8 +13,20 @@ export default function (dateTimeString) {
 	}
 
 	if (items = splitString(dateTimeString, 'T')) {
-		Object.assign(returnObject, parseDate(items[0]))
-		Object.assign(returnObject, parseTime(items[1]))
+		let date = parseDate(items[0])
+		let time = parseTime(items[1].slice(0, -1))
+
+		Object.assign(returnObject, date)
+		Object.assign(returnObject, time)
+
+		returnObject.lowerLimit = new Date(
+			date.string + 'T' + time.string + 'Z'
+		)
+		returnObject.upperLimit = addDurationToDate(
+			returnObject.lowerLimit,
+			precisionToDuration(returnObject.precision)
+		)
+
 		return returnObject
 	}
 

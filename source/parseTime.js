@@ -1,35 +1,37 @@
 export default function (timeString) {
-	let items = timeString.split(':')
-	let returnObject = {}
-	let precision = 'millisecond'
-	let secondComponents
+	timeString = timeString.replace(':', '')
 
-	let hour = items[0] || 0
-	let minute = items[1] || 0
-	let second = 0
-	let millisecond = 0
-
-	if (items.length === 2) {
-		this.precision = 'minute'
-	}
-	if (items.length === 1) {
-		this.precision = 'hour'
+	let [time, fraction = 0] = timeString.split('.')
+	let returnObject = {
+		hour: 0,
+		minute: 0,
+		second: 0,
+		millisecond: 0
 	}
 
-	if (secondComponents = items[2].split('.')) {
-		second = secondComponents[0]
-		millisecond = secondComponents[1]
+	if (time.length >= 2) {
+		returnObject.hour = time.substr(0, 2) || 0
+		returnObject.minute = fraction * 60
 	}
-	else {
-		second = items[2]
-		this.precision = 'second'
+	if (time.length >= 4) {
+		returnObject.minute = time.substr(2, 4) || 0
+		returnObject.second = fraction * 60
+	}
+	if (time.length === 6) {
+		returnObject.second = time.substr(4, 6) || 0
+		returnObject.millisecond = fraction
 	}
 
-	return {
-		string: timeString,
-		hour,
-		minute,
-		second,
-		millisecond
-	}
+	returnObject.string =
+		('00' + returnObject.hour).slice(-2) + ':' +
+		('00' + returnObject.minute).slice(-2) + ':' +
+		('00' + returnObject.second).slice(-2) + '.' +
+		('000' + returnObject.millisecond).slice(-3)
+
+	returnObject.precision = returnObject.millisecond ? 'millisecond' :
+		(returnObject.second ? 'second' :
+			(returnObject.minute ? 'minute' : 'hour')
+		)
+
+	return returnObject
 }
