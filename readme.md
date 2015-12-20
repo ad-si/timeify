@@ -87,6 +87,20 @@ Possible formats for the time-string
 
 ## Methods
 
+### `toObject`
+
+Returns a plain-object representation of the Hour instance.
+
+```
+new Hour('2015-11-24T21:37:42.123Z').toObject() === {
+	type: 'moment',
+	string: test.title,
+	lowerLimit: new Date('2015-11-24T21:37:42.123Z'),
+	upperLimit: new Date('2015-11-24T21:37:42.124Z'),
+	precision: 'millisecond'
+}
+```
+
 ### `toJSON`
 
 Returns a JSON representation of the Hour instance.
