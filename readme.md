@@ -114,3 +114,11 @@ new Hour('2015-11-24').toJSON() === '{' +
 	'"upperLimit":"2015-11-25T00:00:00.000Z"' +
 '}'
 ```
+
+### `toString`
+
+Returns a JSON representation of the Hour instance.
+
+```
+new Hour('2015-11-24T21:37:42.123Z').toString() === '2015-11-24T21:37:42.123Z'
+```

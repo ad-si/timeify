@@ -2,11 +2,11 @@ import runTest from 'ava'
 import expect from 'unexpected'
 import Hour from '../build/index.js'
 
-let hour = new Hour('2015-11-24').toJSON()
+let hour = new Hour('2015-11-24')
 
 runTest('toJSON', test => {
 	expect(
-		hour,
+		hour.toJSON(),
 		'to equal',
 		'{' +
 			'"type":"moment",' +
@@ -16,4 +16,8 @@ runTest('toJSON', test => {
 			'"upperLimit":"2015-11-25T00:00:00.000Z"' +
 		'}'
 	)
+})
+
+runTest('toString', test => {
+	expect(hour.toString(), 'to equal', '2015-11-24')
 })
