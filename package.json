@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "babel --quiet --presets es2015 source --out-dir build",
-    "test": "npm run build && ava"
+    "test": "npm run build && ava",
+    "prepublish": "npm test"
   },
   "keywords": [
     "iso 8601",
