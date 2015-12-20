@@ -157,6 +157,23 @@ expect(
 	}
 )
 
+// Durations
+expect(
+	new Hour('P3Y6M4DT12H30M5S').toObject(),
+	'to equal',
+	{
+		type: 'duration',
+		string: 'P3Y6M4DT12H30M5S',
+		years: 3,
+		months: 6,
+		days: 4,
+		hours: 12,
+		minutes: 30,
+		seconds: 5,
+	}
+)
+
+// Time Intervals
 expect(
 	new Hour('2015--2016').toObject(),
 	'to equal',

@@ -15,7 +15,10 @@ export default class Hour {
 			this.type = 'moment'
 			this.timeString = startDate.toISOString()
 			this.lowerLimit = startDate,
-			this.upperLimit = addDurationToDate(startDate, 'P0.001S'),
+			this.upperLimit = addDurationToDate(
+				startDate,
+				new Duration('P0.001S')
+			),
 			this.precision = 'ms'
 		}
 		else {
@@ -24,7 +27,16 @@ export default class Hour {
 
 			this.timeString = timeString
 
-			if (timeString.startsWith('R')) {
+			if (timeString.startsWith('P')) {
+				this.type = 'duration'
+				this._duration = new Duration(timeString).toObject()
+				Object.assign(
+					this,
+					this._duration
+				)
+			}
+
+			else if (timeString.startsWith('R')) {
 				this.type = 'repetition'
 				items = splitString(timeString, intervalSeparator)
 				this.numberOfRepetitions = items[0].substr(1)
@@ -62,6 +74,14 @@ export default class Hour {
 
 			if (this.upperLimit)
 				returnObject.upperLimit = this.upperLimit
+		}
+		else if (this.type === 'duration') {
+			returnObject = {
+				type: this.type,
+				string: this.timeString,
+			}
+
+			Object.assign(returnObject, this._duration)
 		}
 		else if (this.type === 'period') {
 			returnObject = {
