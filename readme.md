@@ -83,3 +83,20 @@ Possible formats for the time-string
 
 1. Repeating Intervals
 	- `R<number-of-repetitions>/<time-interval>`
+
+
+## Methods
+
+### `toJSON`
+
+Returns a JSON representation of the Hour instance.
+
+```
+new Hour('2015-11-24').toJSON() === '{' +
+	'"type":"moment",' +
+	'"string":"2015-11-24",' +
+	'"precision":"day",' +
+	'"lowerLimit":"2015-11-24T00:00:00.000Z",' +
+	'"upperLimit":"2015-11-25T00:00:00.000Z"' +
+'}'
+```

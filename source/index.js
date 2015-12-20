@@ -111,6 +111,10 @@ export default class Hour {
 		return returnObject
 	}
 
+	toJSON () {
+		return JSON.stringify(this.toObject())
+	}
+
 	toString () {
 		return this.timeString
 	}
