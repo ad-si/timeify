@@ -6,7 +6,7 @@ let hour = new Hour('2015-11-24')
 
 runTest('toJSON', test => {
 	expect(
-		hour.toJSON(),
+		JSON.stringify(hour),
 		'to equal',
 		'{' +
 			'"type":"moment",' +
