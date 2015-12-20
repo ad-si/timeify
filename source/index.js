@@ -20,7 +20,6 @@ export default class Hour {
 		}
 		else {
 			let intervalSeparator = (timeString.includes('--') ? '--' : '/')
-			let dateTimeSeparator = (timeString.includes(' ') ? ' ' : 'T')
 			let items
 
 			this.timeString = timeString

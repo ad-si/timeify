@@ -7,17 +7,20 @@ import parseTime from './parseTime.js'
 
 export default function (dateTimeString) {
 
-	let items
+	dateTimeString = dateTimeString.replace(' ', 'T')
 	let returnObject = {
 		string: dateTimeString
 	}
+	let items
+
 
 	if (items = splitString(dateTimeString, 'T')) {
 		let date = parseDate(items[0])
-		let time = parseTime(items[1].slice(0, -1))
+		let time = parseTime(items[1].replace('Z', ''))
 
 		Object.assign(returnObject, date)
 		Object.assign(returnObject, time)
+
 
 		returnObject.lowerLimit = new Date(
 			date.string + 'T' + time.string + 'Z'
