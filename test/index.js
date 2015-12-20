@@ -146,25 +146,6 @@ expect(
 )
 
 expect(
-	new Hour('2015-11-24--2015-11-30').toObject(),
-	'to equal',
-	{
-		type: 'period',
-		string: '2015-11-24--2015-11-30',
-		start: {
-			lowerLimit: new Date('2015-11-24T00:00:00.000Z'),
-			upperLimit: new Date('2015-11-25T00:00:00.000Z'),
-			precision: 'day'
-		},
-		end: {
-			lowerLimit: new Date('2015-11-30T00:00:00.000Z'),
-			upperLimit: new Date('2015-12-01T00:00:00.000Z'),
-			precision: 'day'
-		}
-	}
-)
-
-expect(
 	new Hour('2015--2016').toObject(),
 	'to equal',
 	{
@@ -179,6 +160,44 @@ expect(
 			lowerLimit: new Date('2016-01-01T00:00:00.000Z'),
 			upperLimit: new Date('2017-01-01T00:00:00.000Z'),
 			precision: 'year'
+		}
+	}
+)
+
+expect(
+	new Hour('2015-09--2015-11').toObject(),
+	'to equal',
+	{
+		type: 'period',
+		string: '2015-09--2015-11',
+		start: {
+			lowerLimit: new Date('2015-09-01T00:00:00.000Z'),
+			upperLimit: new Date('2015-10-01T00:00:00.000Z'),
+			precision: 'month'
+		},
+		end: {
+			lowerLimit: new Date('2015-11-01T00:00:00.000Z'),
+			upperLimit: new Date('2015-12-01T00:00:00.000Z'),
+			precision: 'month'
+		}
+	}
+)
+
+expect(
+	new Hour('2015-11-24--2015-11-30').toObject(),
+	'to equal',
+	{
+		type: 'period',
+		string: '2015-11-24--2015-11-30',
+		start: {
+			lowerLimit: new Date('2015-11-24T00:00:00.000Z'),
+			upperLimit: new Date('2015-11-25T00:00:00.000Z'),
+			precision: 'day'
+		},
+		end: {
+			lowerLimit: new Date('2015-11-30T00:00:00.000Z'),
+			upperLimit: new Date('2015-12-01T00:00:00.000Z'),
+			precision: 'day'
 		}
 	}
 )
