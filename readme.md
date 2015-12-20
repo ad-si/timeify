@@ -91,7 +91,7 @@ Possible formats for the time-string
 
 Returns a plain-object representation of the Hour instance.
 
-```
+```js
 new Hour('2015-11-24T21:37:42.123Z').toObject() === {
 	type: 'moment',
 	string: test.title,
@@ -105,7 +105,7 @@ new Hour('2015-11-24T21:37:42.123Z').toObject() === {
 
 Returns a JSON representation of the Hour instance.
 
-```
+```js
 new Hour('2015-11-24').toJSON() === '{' +
 	'"type":"moment",' +
 	'"string":"2015-11-24",' +
@@ -119,6 +119,6 @@ new Hour('2015-11-24').toJSON() === '{' +
 
 Returns a JSON representation of the Hour instance.
 
-```
+```js
 new Hour('2015-11-24T21:37:42.123Z').toString() === '2015-11-24T21:37:42.123Z'
 ```
