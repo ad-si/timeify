@@ -7,20 +7,22 @@
     "test": "test"
   },
   "scripts": {
-    "test": "babel-node --presets es2015 test/index.js"
+    "build": "babel --quiet --presets es2015 source --out-dir build",
+    "test": "npm run build && ava"
   },
   "keywords": [
-    "iso",
-    "8601",
+    "iso 8601",
     "time",
     "date"
   ],
   "author": "Adrian Sieber",
   "license": "MIT",
   "devDependencies": {
+    "ava": "^0.8.0",
     "babel": "^6.1.18",
     "babel-cli": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
+    "babel-register": "^6.3.13",
     "unexpected": "^10.4.0"
   }
 }
