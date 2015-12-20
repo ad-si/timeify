@@ -76,3 +76,24 @@ runTest('2015-11-24--2015-11-30', test => {
 		}
 	)
 })
+
+runTest('2015-11-24T17:23:45.234Z--2015-11-30T09:11:14.567Z', test => {
+	expect(
+		new Hour(test.title).toObject(),
+		'to equal',
+		{
+			type: 'period',
+			string: test.title,
+			start: {
+				lowerLimit: new Date('2015-11-24T17:23:45.234Z'),
+				upperLimit: new Date('2015-11-24T17:23:45.235Z'),
+				precision: 'millisecond'
+			},
+			end: {
+				lowerLimit: new Date('2015-11-30T09:11:14.567Z'),
+				upperLimit: new Date('2015-11-30T09:11:14.568Z'),
+				precision: 'millisecond'
+			}
+		}
+	)
+})
