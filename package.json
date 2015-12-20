@@ -1,6 +1,6 @@
 {
   "name": "hour",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Full ISO 8601 compatible parser.",
   "main": "build/index.js",
   "directories": {
