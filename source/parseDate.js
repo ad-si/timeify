@@ -1,4 +1,4 @@
-export default function (dateString) {
+export default (dateString) => {
 
 	let items = dateString.split('-')
 

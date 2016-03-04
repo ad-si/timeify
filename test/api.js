@@ -2,9 +2,25 @@ import runTest from 'ava'
 import expect from 'unexpected'
 import Hour from '../build/index.js'
 
-let hour = new Hour('2015-11-24')
+runTest('set & get hours', test => {
+	const moment = new Hour('2015-11-24T18:00')
+	moment.setHours(12)
+	expect(moment.hours, 'to equal', 12)
+})
+
+// runTest('toString', test => {
+// 	const moment = new Hour('2015-11-24T18:00')
+// 	const clone = hour.clone()
+// 	moment.setHours(12)
+//
+// 	console.log(moment)
+// 	console.log(clone)
+//
+// 	expect(clone.hours, 'to equal', 18)
+// })
 
 runTest('toJSON', test => {
+	const hour = new Hour('2015-11-24')
 	expect(
 		JSON.stringify(hour),
 		'to equal',
@@ -18,6 +34,8 @@ runTest('toJSON', test => {
 	)
 })
 
+
 runTest('toString', test => {
+	const hour = new Hour('2015-11-24')
 	expect(hour.toString(), 'to equal', '2015-11-24')
 })

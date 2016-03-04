@@ -47,4 +47,36 @@ export default class Duration {
 	toJSON () {
 		return this.toObject()
 	}
+
+	get string () {
+		return durationFragments
+			.reduce(
+				(string, fragment) => {
+					if (this[fragment] == null) {
+						return string
+					}
+
+					if (fragment === 'minutes' && !string.includes('t')) {
+						string += 't'
+					}
+
+					string += this[fragment] + fragment.substr(0,1)
+
+					if (fragment === 'days') {
+						string += 't'
+					}
+					if (fragment === 'milliseconds') {
+						string.replace('s', '.' + this[fragment] + 's')
+					}
+
+					return string
+				},
+				'P'
+			)
+			.toUpperCase()
+	}
+
+	toString () {
+		return this.string
+	}
 }

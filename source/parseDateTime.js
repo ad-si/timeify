@@ -5,7 +5,7 @@ import parseDate from './parseDate.js'
 import parseTime from './parseTime.js'
 
 
-export default function (dateTimeString) {
+export default (dateTimeString) => {
 
 	dateTimeString = dateTimeString.replace(' ', 'T')
 	let returnObject = {
