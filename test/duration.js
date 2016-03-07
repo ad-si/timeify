@@ -92,7 +92,7 @@ runTest('P7.345S', test => {
 		'to equal',
 		{
 			type: 'duration',
-			string: test.title,
+			string: 'P7S345M',
 			seconds: 7,
 			milliseconds: 345,
 		}

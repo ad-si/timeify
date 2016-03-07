@@ -1,13 +1,4 @@
-let durationFragments = [
-	'years',
-	'months',
-	'weeks',
-	'days',
-	'hours',
-	'minutes',
-	'seconds',
-	'milliseconds'
-]
+import durationFragments from './fragments'
 
 export default class Duration {
 	constructor (durationString) {
@@ -60,7 +51,7 @@ export default class Duration {
 						string += 't'
 					}
 
-					string += this[fragment] + fragment.substr(0,1)
+					string += this[fragment] + fragment.substr(0, 1)
 
 					if (fragment === 'days') {
 						string += 't'
@@ -71,8 +62,9 @@ export default class Duration {
 
 					return string
 				},
-				'P'
+				'p'
 			)
+			.replace(/t$/, '')
 			.toUpperCase()
 	}
 

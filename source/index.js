@@ -1,11 +1,12 @@
-import Duration from './Duration.js'
-import addDurationToDate from './addDurationToDate.js'
-import parseDateTime from './parseDateTime.js'
-import serializeDateTime from './serializeDateTime.js'
-import parseDate from './parseDate.js'
-import parseTime from './parseTime.js'
-import splitString from './splitString.js'
-import precisionToDuration from './precisionToDuration.js'
+import Duration from './Duration'
+import addDurationToDate from './addDurationToDate'
+import parseDateTime from './parseDateTime'
+import serializeDateTime from './serializeDateTime'
+import parseDate from './parseDate'
+import parseTime from './parseTime'
+import splitString from './splitString'
+import precisionToDuration from './precisionToDuration'
+import * as startOf from './startOf'
 
 function checkIfMomentOrDuration (type, quantity) {
 	if (type !== 'moment' && type !== 'duration') {
@@ -25,7 +26,7 @@ export default class Hour {
 				startDate,
 				new Duration('P0.001S')
 			),
-			this._precision = 'ms'
+			this._precision = 'millisecond'
 		}
 		else {
 			let intervalSeparator = isoString.includes('--') ? '--' : '/'
@@ -74,6 +75,8 @@ export default class Hour {
 	set years (years) {
 		checkIfMomentOrDuration(this.type, 'Years')
 		this._years = years
+		this._isoString = null
+		this._dateString = null
 		return this
 	}
 	setYears (years) {
@@ -89,6 +92,8 @@ export default class Hour {
 	set months (months) {
 		checkIfMomentOrDuration(this.type, 'Months')
 		this._months = months
+		this._isoString = null
+		this._dateString = null
 		return this
 	}
 	setMonths (months) {
@@ -104,6 +109,8 @@ export default class Hour {
 	set days (days) {
 		checkIfMomentOrDuration(this.type, 'Days')
 		this._days = days
+		this._isoString = null
+		this._dateString = null
 		return this
 	}
 	setDays (days) {
@@ -122,6 +129,7 @@ export default class Hour {
 
 		this._hours = hours
 		this._isoString = null
+		this._timeString = null
 
 		if (this._type === 'moment') {
 			this._lowerLimit.setHours(hours)
@@ -142,6 +150,8 @@ export default class Hour {
 	set minutes (minutes) {
 		checkIfMomentOrDuration(this.type, 'Minutes')
 		this._minutes = minutes
+		this._isoString = null
+		this._timeString = null
 		return this
 	}
 	setMinutes (minutes) {
@@ -157,6 +167,8 @@ export default class Hour {
 	set seconds (seconds) {
 		checkIfMomentOrDuration(this.type, 'Seconds')
 		this._seconds = seconds
+		this._isoString = null
+		this._timeString = null
 		return this
 	}
 	setSeconds (seconds) {
@@ -172,6 +184,8 @@ export default class Hour {
 	set milliseconds (milliseconds) {
 		checkIfMomentOrDuration(this.type, 'Milliseconds')
 		this._milliseconds = milliseconds
+		this._isoString = null
+		this._timeString = null
 		return this
 	}
 	setMilliseconds (milliseconds) {
@@ -196,6 +210,15 @@ export default class Hour {
 
 	get upperLimit () { return this._lowerLimit }
 	set upperLimit (upperLimit) { this._upperLimit = upperLimit }
+
+
+	startOfYear ()		{ startOf.year(this); return this }
+	startOfMonth ()		{ startOf.month(this); return this }
+	startOfDay ()		{ startOf.day(this); return this }
+	startOfHour ()		{ startOf.hour(this); return this }
+	startOfMinute ()	{ startOf.minute(this); return this }
+	startOfSecond ()	{ startOf.second(this); return this }
+
 
 	get isoString () {
 		if (!this._isoString) {
