@@ -9,10 +9,9 @@ export default (dateTimeString) => {
 
 	dateTimeString = dateTimeString.replace(' ', 'T')
 	let returnObject = {
-		string: dateTimeString
+		_isoString: dateTimeString
 	}
 	let items
-
 
 	if (items = splitString(dateTimeString, 'T')) {
 		let date = parseDate(items[0])
@@ -21,81 +20,81 @@ export default (dateTimeString) => {
 		Object.assign(returnObject, date)
 		Object.assign(returnObject, time)
 
-
-		returnObject.lowerLimit = new Date(
-			date.string + 'T' + time.string + 'Z'
+		returnObject._lowerLimit = new Date(
+			returnObject._dateString + 'T' + returnObject._timeString + 'Z'
 		)
-		returnObject.upperLimit = addDurationToDate(
-			returnObject.lowerLimit,
+		returnObject._upperLimit = addDurationToDate(
+			returnObject._lowerLimit,
 			precisionToDuration(returnObject.precision)
 		)
+		returnObject._precision = time.precision
 
 		return returnObject
 	}
 
-	returnObject.lowerLimit = new Date(dateTimeString)
+	returnObject._lowerLimit = new Date(dateTimeString)
 
 	if (items = splitString(dateTimeString, '-')) {
 		let precision = (items.length === 3) ? 'day' : 'month'
 
 		Object.assign(returnObject, {
-			upperLimit: addDurationToDate(
-				returnObject.lowerLimit,
+			_upperLimit: addDurationToDate(
+				returnObject._lowerLimit,
 				precisionToDuration(precision)
 			),
-			precision
+			_precision: precision
 		})
 	}
 	else if (dateTimeString.length === 4) {
 		Object.assign(returnObject, {
-			year: dateTimeString,
-			upperLimit: addDurationToDate(
-				returnObject.lowerLimit,
+			_year: dateTimeString,
+			_upperLimit: addDurationToDate(
+				returnObject._lowerLimit,
 				precisionToDuration('year')
 			),
-			precision: 'year'
+			_precision: 'year'
 		})
 	}
 	else if (dateTimeString.length === 3) {
-		returnObject.lowerLimit = new Date(
+		returnObject._lowerLimit = new Date(
 			String(Number(dateTimeString) * 10)
 		)
 
 		Object.assign(returnObject, {
-			decade: dateTimeString,
-			upperLimit: addDurationToDate(
-				returnObject.lowerLimit,
+			_decade: dateTimeString,
+			_upperLimit: addDurationToDate(
+				returnObject._lowerLimit,
 				precisionToDuration('decade')
 			),
-			precision: 'decade'
+			_precision: 'decade'
 		})
 	}
 	else if (dateTimeString.length === 2) {
-		returnObject.lowerLimit = new Date(
+		returnObject._lowerLimit = new Date(
 			String(Number(dateTimeString) * 100)
 		)
 
 		Object.assign(returnObject, {
-			century: dateTimeString,
-			upperLimit: addDurationToDate(
-				returnObject.lowerLimit,
+			_century: dateTimeString,
+			_upperLimit: addDurationToDate(
+				returnObject._lowerLimit,
 				precisionToDuration('century')
 			),
-			precision: 'century'
+			_precision: 'century'
 		})
 	}
 	else if (dateTimeString.length === 1) {
-		returnObject.lowerLimit = new Date(
+		returnObject._lowerLimit = new Date(
 			String(Number(dateTimeString) * 1000)
 		)
 
 		Object.assign(returnObject, {
-			millennium: dateTimeString,
-			upperLimit: addDurationToDate(
-				returnObject.lowerLimit,
+			_millennium: dateTimeString,
+			_upperLimit: addDurationToDate(
+				returnObject._lowerLimit,
 				precisionToDuration('millennium')
 			),
-			precision: 'millennium'
+			_precision: 'millennium'
 		})
 	}
 

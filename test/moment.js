@@ -176,7 +176,7 @@ runTest('2015-11-24 21:37:42.123', test => {
 		'to equal',
 		{
 			type: 'moment',
-			string: test.title,
+			string: test.title.replace(' ', 'T'),
 			lowerLimit: new Date('2015-11-24T21:37:42.123Z'),
 			upperLimit: new Date('2015-11-24T21:37:42.124Z'),
 			precision: 'millisecond'

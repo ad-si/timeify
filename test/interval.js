@@ -4,7 +4,7 @@ import Hour from '../build/index.js'
 
 function getYearInterval (title) {
 	return {
-		type: 'period',
+		type: 'interval',
 		string: title,
 		start: {
 			lowerLimit: new Date('2015-01-01T00:00:00.000Z'),
@@ -40,7 +40,7 @@ runTest('2015-09--2015-11', test => {
 		new Hour(test.title).toObject(),
 		'to equal',
 		{
-			type: 'period',
+			type: 'interval',
 			string: test.title,
 			start: {
 				lowerLimit: new Date('2015-09-01T00:00:00.000Z'),
@@ -61,7 +61,7 @@ runTest('2015-11-24--2015-11-30', test => {
 		new Hour(test.title).toObject(),
 		'to equal',
 		{
-			type: 'period',
+			type: 'interval',
 			string: test.title,
 			start: {
 				lowerLimit: new Date('2015-11-24T00:00:00.000Z'),
@@ -82,7 +82,7 @@ runTest('2015-11-24T17:23:45.234Z--2015-11-30T09:11:14.567Z', test => {
 		new Hour(test.title).toObject(),
 		'to equal',
 		{
-			type: 'period',
+			type: 'interval',
 			string: test.title,
 			start: {
 				lowerLimit: new Date('2015-11-24T17:23:45.234Z'),

@@ -1,19 +1,25 @@
 import Duration from './Duration.js'
 import addDurationToDate from './addDurationToDate.js'
 import parseDateTime from './parseDateTime.js'
+import serializeDateTime from './serializeDateTime.js'
 import parseDate from './parseDate.js'
 import parseTime from './parseTime.js'
 import splitString from './splitString.js'
 import precisionToDuration from './precisionToDuration.js'
 
+function checkIfMomentOrDuration (type, quantity) {
+	if (type !== 'moment' && type !== 'duration') {
+		throw new Error(quantity + ' can only be set for moments and durations')
+	}
+}
 
 export default class Hour {
-	constructor (timeString) {
-		if (!timeString) {
+	constructor (isoString) {
+		if (!isoString) {
 			let startDate = new Date()
 
 			this._type = 'moment'
-			this._timeString = startDate.toISOString()
+			this._isoString = startDate.toISOString()
 			this._lowerLimit = startDate,
 			this._upperLimit = addDurationToDate(
 				startDate,
@@ -22,29 +28,29 @@ export default class Hour {
 			this._precision = 'ms'
 		}
 		else {
-			let intervalSeparator = (timeString.includes('--') ? '--' : '/')
+			let intervalSeparator = isoString.includes('--') ? '--' : '/'
 			let items
 
-			this._timeString = timeString
+			this._isoString = isoString
 
-			if (timeString.startsWith('P')) {
+			if (isoString.startsWith('P')) {
 				this._type = 'duration'
-				this._duration = new Duration(timeString)
+				this._duration = new Duration(isoString)
 				Object.assign(
 					this,
 					this._duration.toObject()
 				)
 			}
 
-			else if (timeString.startsWith('R')) {
-				this._type = 'repetition'
-				items = splitString(timeString, intervalSeparator)
+			else if (isoString.startsWith('R')) {
+				this._type = 'recurring interval'
+				items = splitString(isoString, intervalSeparator)
 				this.numberOfRepetitions = items[0].substr(1)
 				this.timeInterval = items[1]
 			}
 
-			else if (items = splitString(timeString, intervalSeparator)) {
-				this._type = 'period'
+			else if (items = splitString(isoString, intervalSeparator)) {
+				this._type = 'interval'
 				this.start = parseDateTime(items[0])
 				this.end = parseDateTime(items[1])
 			}
@@ -53,24 +59,69 @@ export default class Hour {
 				this._type = 'moment'
 				Object.assign(
 					this,
-					parseDateTime(timeString)
+					parseDateTime(isoString)
 				)
 			}
 		}
 	}
 
 	clone () {
-		return new Hour(this.toString())
+		return new Hour(this.isoString)
 	}
 
+
+	// Years
+	set years (years) {
+		checkIfMomentOrDuration(this.type, 'Years')
+		this._years = years
+		return this
+	}
+	setYears (years) {
+		this.years = years
+		return this
+	}
+
+	get years () { return this._years }
+	getYears () { return this._years }
+
+
+	// Months
+	set months (months) {
+		checkIfMomentOrDuration(this.type, 'Months')
+		this._months = months
+		return this
+	}
+	setMonths (months) {
+		this.months = months
+		return this
+	}
+
+	get months () { return this._months }
+	getMonths () { return this._months }
+
+
+	// Days
+	set days (days) {
+		checkIfMomentOrDuration(this.type, 'Days')
+		this._days = days
+		return this
+	}
+	setDays (days) {
+		this.days = days
+		return this
+	}
+
+	get days () { return this._days }
+	getDays () { return this._days }
+
+
+	// Hours
 	set hours (hours) {
-		if (this._type !== 'moment' && this._type !== 'duration') {
-			throw new Error('Hours can only be set for moments and durations')
-		}
+		checkIfMomentOrDuration(this.type, 'Hours')
 		hours = Number(hours)
 
 		this._hours = hours
-		this._timeString = null
+		this._isoString = null
 
 		if (this._type === 'moment') {
 			this._lowerLimit.setHours(hours)
@@ -83,13 +134,85 @@ export default class Hour {
 		return this
 	}
 
-	get hours () {
-		return this._hours
+	get hours () { return this._hours }
+	getHours () { return this._hours }
+
+
+	// Minutes
+	set minutes (minutes) {
+		checkIfMomentOrDuration(this.type, 'Minutes')
+		this._minutes = minutes
+		return this
+	}
+	setMinutes (minutes) {
+		this.minutes = minutes
+		return this
 	}
 
-	getHours () {
-		return this._hours
+	get minutes () { return this._minutes }
+	getMinutes () { return this._minutes }
+
+
+	// Seconds
+	set seconds (seconds) {
+		checkIfMomentOrDuration(this.type, 'Seconds')
+		this._seconds = seconds
+		return this
 	}
+	setSeconds (seconds) {
+		this.seconds = seconds
+		return this
+	}
+
+	get seconds () { return this._seconds }
+	getSeconds () { return this._seconds }
+
+
+	// Milliseconds
+	set milliseconds (milliseconds) {
+		checkIfMomentOrDuration(this.type, 'Milliseconds')
+		this._milliseconds = milliseconds
+		return this
+	}
+	setMilliseconds (milliseconds) {
+		this.milliseconds = milliseconds
+		return this
+	}
+
+	get milliseconds () { return this._milliseconds }
+	getMilliseconds () { return this._milliseconds }
+
+	// Type
+	set type (type) { this._type = type; return this }
+	setType (type) { this._type = type; return this }
+	get type () { return this._type }
+	getType () { return this._type }
+
+	get precision () { return this._precision }
+	set precision (precision) { this._precision = precision }
+
+	get lowerLimit () { return this._lowerLimit }
+	set lowerLimit (lowerLimit) { this._lowerLimit = lowerLimit }
+
+	get upperLimit () { return this._lowerLimit }
+	set upperLimit (upperLimit) { this._upperLimit = upperLimit }
+
+	get isoString () {
+		if (!this._isoString) {
+			if (this.type === 'duration') {
+				return this._duration.string
+			}
+			else if (this.type === 'moment') {
+				return serializeDateTime(this)
+			}
+			throw new Error('ISO time string is not available')
+		}
+
+		return this._isoString
+	}
+
+	toString () { return this.isoString }
+
 
 	toObject () {
 		let returnObject
@@ -97,7 +220,7 @@ export default class Hour {
 		if (this._type === 'moment') {
 			returnObject = {
 				type: this.type,
-				string: this.timeString,
+				string: this.isoString,
 				precision: this.precision,
 			}
 
@@ -110,34 +233,34 @@ export default class Hour {
 		else if (this._type === 'duration') {
 			returnObject = {
 				type: this.type,
-				string: this.timeString,
+				string: this.isoString,
 			}
 
 			Object.assign(returnObject, this._duration)
 		}
-		else if (this._type === 'period') {
+		else if (this._type === 'interval') {
 			returnObject = {
 				type: this.type,
-				string: this.timeString,
+				string: this.isoString,
 				start: {
-					precision: this.start.precision
+					precision: this.start._precision
 				},
 				end: {
-					precision: this.end.precision
+					precision: this.end._precision
 				}
 			}
 
-			if (this.start.lowerLimit)
-				returnObject.start.lowerLimit = this.start.lowerLimit
+			if (this.start._lowerLimit)
+				returnObject.start.lowerLimit = this.start._lowerLimit
 
-			if (this.start.upperLimit)
-				returnObject.start.upperLimit = this.start.upperLimit
+			if (this.start._upperLimit)
+				returnObject.start.upperLimit = this.start._upperLimit
 
-			if (this.end.lowerLimit)
-				returnObject.end.lowerLimit = this.end.lowerLimit
+			if (this.end._lowerLimit)
+				returnObject.end.lowerLimit = this.end._lowerLimit
 
-			if (this.end.upperLimit)
-				returnObject.end.upperLimit = this.end.upperLimit
+			if (this.end._upperLimit)
+				returnObject.end.upperLimit = this.end._upperLimit
 		}
 
 		return returnObject
@@ -146,28 +269,4 @@ export default class Hour {
 	toJSON () {
 		return this.toObject()
 	}
-
-	get timeString () {
-		if (!this._timeString) {
-			if (this.type === 'duration') {
-				return this._duration.string
-			}
-			throw new Error('Time string is not available')
-		}
-
-		return this._timeString
-	}
-
-	toString () { return this.timeString }
-
-	get precision () { return this._precision }
-	set precision (precision) { this._precision = precision }
-
-	get type () { return this._type }
-
-	get lowerLimit () { return this._lowerLimit }
-	set lowerLimit (lowerLimit) { this._lowerLimit = lowerLimit }
-
-	get upperLimit () { return this._lowerLimit }
-	set upperLimit (upperLimit) { this._upperLimit = upperLimit }
 }

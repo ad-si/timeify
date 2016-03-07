@@ -3,9 +3,9 @@ export default (dateString) => {
 	let items = dateString.split('-')
 
 	return {
-		string: dateString,
-		year: items[0],
-		month: items[1],
-		day: items[2]
+		_dateString: dateString,
+		_years: Number(items[0]),
+		_months: Number(items[1]),
+		_days: Number(items[2]),
 	}
 }
