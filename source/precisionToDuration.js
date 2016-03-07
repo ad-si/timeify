@@ -1,4 +1,4 @@
-import Duration from './Duration.js'
+import Duration from '@datatypes/duration'
 
 export default function (precision) {
 	let map = {

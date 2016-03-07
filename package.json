@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/adius/hour#readme",
   "dependencies": {
+    "@datatypes/duration": "^0.1.0",
     "zpad": "^0.5.0"
   }
 }
