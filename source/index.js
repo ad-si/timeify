@@ -1,5 +1,6 @@
 import Duration from './Duration'
-import addDurationToDate from './addDurationToDate'
+import Instant from './Instant'
+import addDurationToInstant from './addDurationToInstant'
 import parseDateTime from './parseDateTime'
 import serializeDateTime from './serializeDateTime'
 import parseDate from './parseDate'
@@ -17,12 +18,12 @@ function checkIfMomentOrDuration (type, quantity) {
 export default class Hour {
 	constructor (isoString) {
 		if (!isoString) {
-			let startDate = new Date()
+			let startDate = new Instant()
 
 			this._type = 'moment'
 			this._isoString = startDate.toISOString()
 			this._lowerLimit = startDate,
-			this._upperLimit = addDurationToDate(
+			this._upperLimit = addDurationToInstant(
 				startDate,
 				new Duration('P0.001S')
 			),
@@ -223,12 +224,14 @@ export default class Hour {
 	get isoString () {
 		if (!this._isoString) {
 			if (this.type === 'duration') {
-				return this._duration.string
+				this._isoString = this._duration.string
 			}
 			else if (this.type === 'moment') {
-				return serializeDateTime(this)
+				this._isoString = serializeDateTime(this)
 			}
-			throw new Error('ISO time string is not available')
+			else {
+				throw new Error('ISO time string is not available')
+			}
 		}
 
 		return this._isoString

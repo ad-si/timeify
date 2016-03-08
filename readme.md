@@ -39,7 +39,7 @@ Possible formats for the time-string
 		- `2015-328`
 		- `2015328`
 
-1. Time
+1. Time of Day
 	- Minute:
 		- `21:32`
 		- `2132`
@@ -50,7 +50,7 @@ Possible formats for the time-string
 		- `21:32:43.654`
 		- `213243.654`
 
-1. Datetime
+1. Date Time
 	- `<date>T<time>`
 	- `<date> <time>`
 
@@ -95,8 +95,8 @@ Returns a plain-object representation of the Hour instance.
 new Hour('2015-11-24T21:37:42.123Z').toObject() === {
 	type: 'moment',
 	string: test.title,
-	lowerLimit: new Date('2015-11-24T21:37:42.123Z'),
-	upperLimit: new Date('2015-11-24T21:37:42.124Z'),
+	lowerLimit: new Instant('2015-11-24T21:37:42.123Z'),
+	upperLimit: new Instant('2015-11-24T21:37:42.124Z'),
 	precision: 'millisecond'
 }
 ```
@@ -122,3 +122,18 @@ Returns a JSON representation of the Hour instance.
 ```js
 new Hour('2015-11-24T21:37:42.123Z').toString() === '2015-11-24T21:37:42.123Z'
 ```
+
+
+## Conventions
+
+In contrast to the ISO 8601 standard this module assumes that times points
+are specified in UTC per default. This means in order to work with local times
+they must be explicitly entered with their offset (e.g. `17:45:34+0300`) or
+the relevant flags must be set.
+This also means that the `Z` to denote UTC times is optional.
+
+In order to fix the naming schema of classes and unify it with the usage
+in the ISO 8601 specification
+the internal `Date` class overwrites the Javascript one and encapsulates
+a calendar date. For defining an instant in time
+(as the original`Date` class does … kind of) the `Instant` class is used.
