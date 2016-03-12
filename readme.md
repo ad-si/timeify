@@ -1,11 +1,11 @@
 # Timeify
 
 ISO 8601 based time and date module.
-Parses a ISO string and returns an instance of the corresponding class.
+Parses an ISO string and returns an instance of the corresponding class.
 
 Check out the respective packages for details:
 
-- [Moment](github.com/datatypesjs/moment)
+- [Moment](https://github.com/datatypesjs/moment)
 - [Duration](https://github.com/datatypesjs/duration)
 - [Interval and RecurringInterval](https://github.com/datatypesjs/interval)
 
