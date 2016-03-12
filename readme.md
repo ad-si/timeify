@@ -1,26 +1,34 @@
-# Hour
+# Timeify
 
 ISO 8601 based time and date module.
-Support for dates, times, duration and time intervals in UTC.
+Parses a ISO string and returns an instance of the corresponding class.
+
+Check out the respective packages for details:
+
+- [Moment](github.com/datatypesjs/moment)
+- [Duration](https://github.com/datatypesjs/duration)
+- [Interval and RecurringInterval](https://github.com/datatypesjs/interval)
 
 
 ## Installation
 
 ```shell
-npm install --save hour
+npm install --save timeify
 ```
 
 
 ## Usage
 
 ```js
-const Hour = require('hour')
+const timeify = require('timeify')
 
-new Hour('2015-11-24T21:32:43Z')
+const moment = timeify('2015-11-24T21:32:43')
+const duration = timeify('P2DT10H37M24.345S')
+const interval = timeify('2015-11-24--2015-11-26')
+const recurringInterval = timeify('R3/2015-11-24/P1D')
 ```
 
-Possible formats for the time-string
-(when a string can be interpreted as a date or a time, date takes precedence)
+Possible formats for the time-string (when a string can be interpreted as a date or a time, date takes precedence)
 
 1. Date
 	- Millennium: '2'
@@ -39,7 +47,8 @@ Possible formats for the time-string
 		- `2015-328`
 		- `2015328`
 
-1. Time of Day
+2. Time of Day (currently not supported as standalone version)
+	- Hour: `21`
 	- Minute:
 		- `21:32`
 		- `2132`
@@ -50,11 +59,11 @@ Possible formats for the time-string
 		- `21:32:43.654`
 		- `213243.654`
 
-1. Date Time
+3. Date Time
 	- `<date>T<time>`
 	- `<date> <time>`
 
-1. Duration
+4. Duration
 	- `P<datetime>`
 	- Year: `P1Y`
 	- Month: `P1M`
@@ -69,7 +78,7 @@ Possible formats for the time-string
 		- `P1S`
 		- `PT1S`
 
-1. Time Intervals
+5. Time Interval
 	- `<start-datetime>/<end-datetime>`
 	- `<start-datetime>--<end-datetime>`
 
@@ -81,59 +90,20 @@ Possible formats for the time-string
 
 	- `duration` + context information
 
-1. Repeating Intervals
-	- `R<number-of-repetitions>/<time-interval>`
-
-
-## Methods
-
-### `toObject`
-
-Returns a plain-object representation of the Hour instance.
-
-```js
-new Hour('2015-11-24T21:37:42.123Z').toObject() === {
-	type: 'moment',
-	string: test.title,
-	lowerLimit: new Instant('2015-11-24T21:37:42.123Z'),
-	upperLimit: new Instant('2015-11-24T21:37:42.124Z'),
-	precision: 'millisecond'
-}
-```
-
-### `toJSON`
-
-Returns a JSON representation of the Hour instance.
-
-```js
-new Hour('2015-11-24').toJSON() === '{' +
-	'"type":"moment",' +
-	'"string":"2015-11-24",' +
-	'"precision":"day",' +
-	'"lowerLimit":"2015-11-24T00:00:00.000Z",' +
-	'"upperLimit":"2015-11-25T00:00:00.000Z"' +
-'}'
-```
-
-### `toString`
-
-Returns a JSON representation of the Hour instance.
-
-```js
-new Hour('2015-11-24T21:37:42.123Z').toString() === '2015-11-24T21:37:42.123Z'
-```
+6. Recurring Interval
+	- `R<number-of-recurrences>/<time-interval>`
 
 
 ## Conventions
 
-In contrast to the ISO 8601 standard this module assumes that times points
-are specified in UTC per default. This means in order to work with local times
-they must be explicitly entered with their offset (e.g. `17:45:34+0300`) or
-the relevant flags must be set.
+In contrast to the ISO 8601 standard
+this module assumes that times points are specified in UTC per default.
+This means in order to work with local times
+they must be explicitly entered with their offset (e.g. `17:45:34+0300`)
+or the relevant flags must be set.
 This also means that the `Z` to denote UTC times is optional.
 
-In order to fix the naming schema of classes and unify it with the usage
-in the ISO 8601 specification
-the internal `Date` class overwrites the Javascript one and encapsulates
-a calendar date. For defining an instant in time
-(as the original`Date` class does … kind of) the `Instant` class is used.
+In order to fix the naming schema of native classes and unify it
+with the usage in the ISO 8601 specification
+the internal `Instant` class encapsulates the Javascript `Date` class.
+It defines an infinitely accurate moment in time.
