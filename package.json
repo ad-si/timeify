@@ -2,14 +2,14 @@
   "name": "timeify",
   "version": "0.2.0",
   "description": "Full ISO 8601 compatible parser.",
-  "main": "build/index.js",
+  "main": "build/index",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "build": "babel --quiet source --out-dir build",
+    "build": "babel --quiet --out-dir build source",
     "test": "ava --require babel-register --fail-fast",
-    "prepublish": "npm test"
+    "prepublish": "npm test && npm run build"
   },
   "keywords": [
     "iso 8601",
