@@ -19,7 +19,7 @@
   "author": "Adrian Sieber",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.12.0",
+    "ava": "^0.13.0",
     "babel-cli": "^6.6.5",
     "babel-plugin-transform-builtin-extend": "^1.1.0",
     "babel-polyfill": "^6.6.1",
@@ -38,7 +38,7 @@
   "dependencies": {
     "@datatypes/duration": "^0.4.0",
     "@datatypes/interval": "^0.3.0",
-    "@datatypes/moment": "^0.3.0",
+    "@datatypes/moment": "^0.4.0",
     "zpad": "^0.5.0"
   }
 }
